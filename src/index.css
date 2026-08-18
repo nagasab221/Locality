@@ -1,0 +1,322 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- colour themes -------------------------------------------------------- *
+ * Values are RGB channels (space separated) so Tailwind's rgb(var(--c-x) /
+ * <alpha-value>) can apply /opacity modifiers. :root is the default "Warm"
+ * theme; each :root[data-theme] block only overrides the chrome tokens, so the
+ * shared status colours (warn/ok/danger) stay defined once here. The active
+ * theme is set on <html data-theme> — an inline script in index.html restores
+ * it before first paint, and Settings > Appearance switches it live.          */
+:root {
+  --c-bg: 13 13 13;
+  --c-surface: 20 18 16;
+  --c-raised: 27 24 21;
+  --c-hov: 38 32 25;
+  --c-input: 26 22 18;
+  --c-inborder: 58 52 43;
+  --c-cardborder: 42 38 32;
+  --c-divider: 33 30 25;
+  --c-accent: 196 164 124;
+  --c-accenthov: 213 183 141;
+  --c-accenttext: 22 19 16;
+  --c-track: 56 51 43;
+  --c-heading: 244 238 224;
+  --c-body: 233 225 210;
+  --c-muted: 140 132 120;
+  --c-hint: 182 154 112;
+  --c-warn: 217 162 76;
+  --c-ok: 110 158 106;
+  --c-danger: 206 132 121;
+}
+
+/* Dark blue */
+:root[data-theme="midnight"] {
+  --c-bg: 9 12 20;
+  --c-surface: 14 19 32;
+  --c-raised: 20 27 43;
+  --c-hov: 28 38 60;
+  --c-input: 16 22 37;
+  --c-inborder: 42 54 82;
+  --c-cardborder: 30 40 62;
+  --c-divider: 22 30 48;
+  --c-accent: 92 148 232;
+  --c-accenthov: 124 174 245;
+  --c-accenttext: 8 12 22;
+  --c-track: 42 54 82;
+  --c-heading: 233 239 250;
+  --c-body: 205 214 230;
+  --c-muted: 124 136 160;
+  --c-hint: 128 168 224;
+}
+
+/* Purple / magenta */
+:root[data-theme="amethyst"] {
+  --c-bg: 16 10 22;
+  --c-surface: 24 16 32;
+  --c-raised: 33 22 44;
+  --c-hov: 46 30 60;
+  --c-input: 28 18 38;
+  --c-inborder: 66 44 86;
+  --c-cardborder: 48 32 62;
+  --c-divider: 34 22 44;
+  --c-accent: 198 96 210;
+  --c-accenthov: 214 128 224;
+  --c-accenttext: 18 8 22;
+  --c-track: 66 44 86;
+  --c-heading: 244 233 250;
+  --c-body: 224 210 232;
+  --c-muted: 146 128 160;
+  --c-hint: 196 148 216;
+}
+
+/* Wine red */
+:root[data-theme="burgundy"] {
+  --c-bg: 22 10 12;
+  --c-surface: 32 15 18;
+  --c-raised: 44 21 25;
+  --c-hov: 60 29 34;
+  --c-input: 38 18 21;
+  --c-inborder: 86 46 52;
+  --c-cardborder: 62 34 39;
+  --c-divider: 44 24 28;
+  --c-accent: 200 78 92;
+  --c-accenthov: 216 108 120;
+  --c-accenttext: 22 10 12;
+  --c-track: 86 46 52;
+  --c-heading: 250 236 236;
+  --c-body: 232 212 213;
+  --c-muted: 160 128 130;
+  --c-hint: 208 140 148;
+}
+
+/* Pure black for OLED, clean silver accent */
+:root[data-theme="oled"] {
+  --c-bg: 0 0 0;
+  --c-surface: 10 10 12;
+  --c-raised: 18 18 20;
+  --c-hov: 28 28 32;
+  --c-input: 14 14 16;
+  --c-inborder: 44 44 50;
+  --c-cardborder: 28 28 32;
+  --c-divider: 22 22 26;
+  --c-accent: 224 226 232;
+  --c-accenthov: 240 242 246;
+  --c-accenttext: 0 0 0;
+  --c-track: 44 44 50;
+  --c-heading: 245 246 250;
+  --c-body: 214 216 224;
+  --c-muted: 128 130 140;
+  --c-hint: 150 154 165;
+}
+
+/* Forest green */
+:root[data-theme="emerald"] {
+  --c-bg: 8 16 13;
+  --c-surface: 13 24 20;
+  --c-raised: 19 33 28;
+  --c-hov: 27 46 39;
+  --c-input: 15 26 22;
+  --c-inborder: 40 66 56;
+  --c-cardborder: 29 48 41;
+  --c-divider: 20 34 29;
+  --c-accent: 62 190 130;
+  --c-accenthov: 100 212 158;
+  --c-accenttext: 6 16 12;
+  --c-track: 40 66 56;
+  --c-heading: 232 245 238;
+  --c-body: 208 226 216;
+  --c-muted: 124 148 136;
+  --c-hint: 128 200 160;
+}
+
+/* Neutral slate, teal accent */
+:root[data-theme="graphite"] {
+  --c-bg: 15 16 18;
+  --c-surface: 22 23 26;
+  --c-raised: 30 32 36;
+  --c-hov: 41 43 48;
+  --c-input: 24 25 28;
+  --c-inborder: 58 61 68;
+  --c-cardborder: 42 44 50;
+  --c-divider: 32 34 38;
+  --c-accent: 79 182 176;
+  --c-accenthov: 112 204 198;
+  --c-accenttext: 8 18 18;
+  --c-track: 58 61 68;
+  --c-heading: 238 240 244;
+  --c-body: 210 214 220;
+  --c-muted: 130 136 144;
+  --c-hint: 120 196 190;
+}
+
+/* Light themes: surfaces run near-white and text is dark, so elevation still
+ * climbs toward white (bg → surface → raised) but hover DARKENS instead of
+ * lightening, and accents/hints are deepened so they read on a bright page. */
+
+/* Warm light */
+:root[data-theme="paper"] {
+  --c-bg: 238 234 227;
+  --c-surface: 250 247 242;
+  --c-raised: 255 253 249;
+  --c-hov: 231 224 213;
+  --c-input: 255 254 251;
+  --c-inborder: 214 205 190;
+  --c-cardborder: 225 218 205;
+  --c-divider: 230 224 213;
+  --c-accent: 182 142 86;
+  --c-accenthov: 166 126 72;
+  --c-accenttext: 41 33 22;
+  --c-track: 222 214 200;
+  --c-heading: 38 32 24;
+  --c-body: 64 56 46;
+  --c-muted: 126 116 102;
+  --c-hint: 146 108 60;
+  --c-warn: 168 122 40;
+  --c-ok: 74 132 78;
+  --c-danger: 188 76 76;
+}
+
+/* Cool light */
+:root[data-theme="frost"] {
+  --c-bg: 235 239 245;
+  --c-surface: 247 250 253;
+  --c-raised: 255 255 255;
+  --c-hov: 224 231 240;
+  --c-input: 255 255 255;
+  --c-inborder: 202 212 225;
+  --c-cardborder: 216 224 234;
+  --c-divider: 225 231 239;
+  --c-accent: 33 105 204;
+  --c-accenthov: 24 88 180;
+  --c-accenttext: 255 255 255;
+  --c-track: 216 224 234;
+  --c-heading: 20 30 44;
+  --c-body: 46 58 74;
+  --c-muted: 104 118 138;
+  --c-hint: 30 96 190;
+  --c-warn: 176 122 24;
+  --c-ok: 56 130 72;
+  --c-danger: 198 66 66;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-bg text-body font-sans antialiased;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--c-inborder));
+  border-radius: 5px;
+  border: 2px solid rgb(var(--c-bg));
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--c-hov));
+}
+
+input[type="range"] {
+  @apply appearance-none bg-transparent cursor-pointer;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  @apply h-1 rounded-full bg-track;
+}
+input[type="range"]::-webkit-slider-thumb {
+  @apply appearance-none w-3.5 h-3.5 rounded-full bg-accent -mt-[5px];
+}
+input[type="range"]:hover::-webkit-slider-thumb {
+  @apply bg-accenthov;
+}
+
+/* --- motion ------------------------------------------------------------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.page-enter {
+  /* "backwards", not "both": a filled transform animation permanently turns
+     the element into a containing block for position:fixed descendants,
+     which threw context menus/overlays far away from the cursor. */
+  animation: fade-up 0.28s ease-out backwards;
+}
+.backdrop-enter {
+  animation: fade-in 0.15s ease-out both;
+}
+.modal-in {
+  animation: pop-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.toast-in {
+  animation: fade-up 0.22s ease-out both;
+}
+.img-fade {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.img-fade.loaded {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .backdrop-enter,
+  .modal-in,
+  .toast-in,
+  .animate-pulse {
+    animation: none;
+  }
+  .img-fade {
+    transition: none;
+    opacity: 1;
+  }
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

@@ -1,0 +1,112 @@
+{
+  "name": "locality",
+  "productName": "Locality",
+  "version": "1.0.0",
+  "description": "Locality — local media server & player (Plex-like, single machine)",
+  "main": "dist/electron/main.cjs",
+  "author": "fabri",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build:main": "esbuild electron/main.ts --bundle --platform=node --format=cjs --external:electron --external:better-sqlite3 --external:ffmpeg-static --outfile=dist/electron/main.cjs",
+    "build:preload": "esbuild electron/preload.ts --bundle --platform=node --format=cjs --external:electron --outfile=dist/electron/preload.cjs",
+    "build:renderer": "vite build",
+    "dev": "vite --port 5173 --strictPort",
+    "build": "npm run build:main && npm run build:preload && npm run build:renderer",
+    "start": "npm run build && electron .",
+    "electron": "electron .",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.electron.json --noEmit",
+    "build:test": "esbuild tests/entry.ts --bundle --platform=node --format=cjs --outfile=dist/test/lib.cjs && esbuild tests/server.entry.ts --bundle --platform=node --format=cjs --external:better-sqlite3 --external:ffmpeg-static --outfile=dist/test/server.cjs",
+    "test:unit": "npm run build:test && node --test tests/parser.test.js tests/matchScore.test.js tests/exif.test.js tests/requestOrigin.test.js",
+    "test:e2e": "npm run build:test && node scripts/run-e2e.js",
+    "test": "npm run typecheck && npm run test:unit && npm run test:e2e",
+    "rebuild": "cd node_modules/better-sqlite3 && prebuild-install --runtime=electron --target=33.4.11 --verbose",
+    "icon": "node scripts/generate-icon.js",
+    "installer-art": "node scripts/generate-installer-art.js",
+    "fetch:mpv": "node scripts/fetch-mpv.js",
+    "dist": "npm run icon && npm run installer-art && npm run build && electron-builder --win",
+    "dist:linux": "npm run build && electron-builder --linux"
+  },
+  "build": {
+    "appId": "com.locality.claude",
+    "productName": "Locality",
+    "npmRebuild": false,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "!dist/test/**",
+      "assets/icon.ico",
+      "assets/icon.png",
+      "package.json"
+    ],
+    "asar": false,
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "extraResources": [
+        {
+          "from": "resources/mpv",
+          "to": "mpv",
+          "filter": ["**/*", "!*.md"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "installerHeaderIcon": "assets/icon.ico",
+      "installerSidebar": "assets/installerSidebar.bmp",
+      "uninstallerSidebar": "assets/installerSidebar.bmp",
+      "installerHeader": "assets/installerHeader.bmp",
+      "include": "build/installer.nsh"
+    },
+    "portable": {
+      "artifactName": "Locality-Portable-${version}.exe"
+    },
+    "linux": {
+      "icon": "assets/icon.png",
+      "category": "AudioVideo",
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "artifactName": "Locality-${version}.${ext}"
+    }
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.4.1",
+    "chokidar": "^4.0.3",
+    "express": "^4.21.2",
+    "ffmpeg-static": "^5.2.0"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^3.7.1",
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "electron": "^33.4.11",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.24.2",
+    "sharp": "^0.33.5",
+    "to-ico": "^1.1.5",
+    "postcss": "^8.4.49",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11"
+  }
+}

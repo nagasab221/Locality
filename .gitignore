@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.log
+release/
+# Bundled mpv binary is fetched at build time, not committed (keep the README).
+resources/mpv/*
+!resources/mpv/README.md

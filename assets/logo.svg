@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Locality — "5arye" family icon: near-black card, warm tan/gold glyph.
+       A media tile (square) with a play button cut into it. -->
+  <defs>
+    <linearGradient id="tan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D5B78D"/>
+      <stop offset="1" stop-color="#C4A47C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background card -->
+  <rect x="28" y="28" width="456" height="456" rx="100" fill="#0D0D0D"/>
+  <rect x="34" y="34" width="444" height="444" rx="94" fill="none" stroke="#2A2620" stroke-width="10"/>
+
+  <!-- media tile -->
+  <rect x="122" y="122" width="268" height="268" rx="40" fill="url(#tan)"/>
+  <!-- play triangle cut into the tile -->
+  <path d="M222 190 L222 322 L334 256 Z" fill="#0D0D0D"/>
+</svg>

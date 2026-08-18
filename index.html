@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Locality</title>
+    <script>
+      // Apply the saved colour theme before first paint to avoid a flash.
+      // "warm" is the CSS default (no attribute); anything else sets data-theme.
+      try {
+        var t = localStorage.getItem("locality.theme");
+        if (t && t !== "warm") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
